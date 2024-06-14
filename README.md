@@ -11,68 +11,132 @@ SecureSystem is dedicated to securing Ubuntu systems using advanced tools like S
 2. [Security Monitoring Setup](#security-monitoring-setup)
 3. [Automation Playbooks](#automation-playbooks)
 4. [Network Security](#network-security)
-5. [Installation and Setup](#installation-and-setup)
-6. [Scripts and Configuration Files](#scripts-and-configuration-files)
-7. [Cron Jobs](#cron-jobs)
-8. [Usage](#usage)
 
 ---
 
 ### Initial System Analysis
 
-Conduct thorough system and vulnerability assessment using Nessus and Splunk. After generating reports we need to immediate work on the findings and try terminate all the vulnerabilities highlighted in the report.
+Conduct a thorough system and vulnerability assessment using Nessus and Splunk. After generating reports, immediately address and mitigate all vulnerabilities highlighted.
 
-Adjust URLs and package names: Ensure the URLs for downloading Nessus and Splunk packages are up-to-date. The examples provided may not be current.
-Execution: Make the scripts executable with chmod +x install_dependencies_ubuntu.sh and chmod +x install_dependencies_kali.sh.
-Run as root: These scripts assume they are executed with sufficient privileges (e.g., using sudo).
+**Steps:**
+1. **Install Dependencies:**
+    ```bash
+    chmod +x install_dependencies_ubuntu.sh
+    chmod +x install_dependencies_kali.sh
+    ```
+    Execute the scripts:
+    ```bash
+    ./install_dependencies_ubuntu.sh
+    ./install_dependencies_kali.sh
+    ```
 
-Now we need to generate reports for further analysis of the system.
+2. **Generate Reports:**
+    ```bash
+    chmod +x generate_splunk_report.sh
+    chmod +x generate_nessus_report.sh
+    ```
+    Execute the scripts:
+    ```bash
+    ./generate_splunk_report.sh
+    ./generate_nessus_report.sh
+    ```
 
-Make the scripts executable:
-**chmod +x generate_splunk_report.sh
-chmod +x generate_nessus_report.sh
-**
-Execute the scripts:
-**./generate_splunk_report.sh
-./generate_nessus_report.sh
-**
+3. **Schedule Weekly Reports:**
+    Use cron jobs to schedule the report generation scripts for continuous monitoring:
+    ```bash
+    crontab -e
+    ```
 
-We can schedule a cron job to weekly generate the reports for continuous monitoring.
 ---
 
 ### Security Monitoring Setup
 
 Configure Splunk for centralized log management. Set up alerts and dashboards for real-time monitoring of security events.
 
-Key Features
-Open Ports Detection
+**Key Features:**
+- **Open Ports Detection:**
+    - Monitors network traffic to identify and alert on open ports.
+    - Enhances network security by detecting unexpected service exposures.
 
-Monitors network traffic to identify and alert on open ports.
-Enhances network security by detecting unexpected service exposures.
-SSH Login Failures
+- **SSH Login Failures:**
+    - Tracks authentication logs to alert on unsuccessful SSH login attempts.
+    - Provides early warning of potential brute-force attacks or unauthorized access attempts.
 
-Tracks authentication logs to alert on unsuccessful SSH login attempts.
-Provides early warning of potential brute-force attacks or unauthorized access attempts.
-Remote Code Execution Monitoring
+- **Remote Code Execution Monitoring:**
+    - Scans system logs for suspicious commands (exec, system, shell) indicative of remote code execution attempts.
+    - Alerts administrators to potential compromises and facilitates rapid response.
 
-Scans system logs for suspicious commands (exec, system, shell) indicative of remote code execution attempts.
-Alerts administrators to potential compromises and facilitates rapid response.
-Unauthorized File Changes Detection
+- **Unauthorized File Changes Detection:**
+    - Monitors audit logs for file system modifications (action=chmod, action=unlink).
+    - Alerts on unauthorized alterations, protecting against malicious activities like tampering or data exfiltration.
 
-Monitors audit logs for file system modifications (action=chmod, action=unlink).
-Alerts on unauthorized alterations, protecting against malicious activities like tampering or data exfiltration.
 ---
 
 ### Automation Playbooks
 
-Develop scripts for automated log analysis, patch management, and periodic vulnerability scans using Nessus. Ensure scripts are scheduled for regular execution. Also incorporate incident report insights to refine automation.
-Use cron jobs (crontab -e) to schedule scripts on a regular basis
-Ensure scripts have appropriate permissions (chmod +x script.sh) for execution.
+Develop scripts for automated log analysis, patch management, and periodic vulnerability scans using Nessus. Ensure scripts are scheduled for regular execution and incorporate incident report insights to refine automation.
+
+**Steps:**
+1. **Create Automation Scripts:**
+    ```bash
+    chmod +x automated_log_analysis.sh
+    chmod +x patch_management.sh
+    chmod +x nessus_vulnerability_scan.sh
+    ```
+
+2. **Schedule Scripts:**
+    Use cron jobs to schedule scripts on a regular basis:
+    ```bash
+    crontab -e
+    ```
+    Ensure scripts have appropriate permissions:
+    ```bash
+    chmod +x script.sh
+    ```
 
 ---
 
 ### Network Security
 
-Monitor and manage network ports and services to prevent unauthorized access and ensure secure communication. Create an automated script to continuously dump the network traffic from tcp dumps and wireshark. Try analyzing any open ports and check the network traffic if there is spike or not. An try closing the open ports if not opened intentionally.
+Monitor and manage network ports and services to prevent unauthorized access and ensure secure communication. Create an automated script to continuously dump network traffic from tcpdump and Wireshark. Analyze open ports and check for network traffic spikes, and close ports if not opened intentionally.
 
-The Network Monitoring Script provides a foundation for automating network monitoring, port management, and traffic analysis to enhance security and mitigate potential threats effectively.
+**Key Features:**
+- **Continuous Network Traffic Dump:**
+    - Uses tcpdump and Wireshark to continuously monitor network traffic.
+    - Analyzes traffic for anomalies and spikes.
+
+- **Open Ports Management:**
+    - Identifies and closes unauthorized open ports.
+    - Ensures only necessary services are running, minimizing attack surfaces.
+
+**Steps:**
+1. **Network Monitoring Script:**
+    ```bash
+    chmod +x network_monitoring.sh
+    ```
+
+2. **Schedule Script:**
+    Use cron jobs to automate the network monitoring script:
+    ```bash
+    crontab -e
+    ```
+
+---
+
+### Setup Instructions
+
+1. **Clone the Repository:**
+    ```bash
+    git clone https://github.com/yourusername/securesystem.git
+    cd securesystem
+    ```
+
+2. **Run the Setup Script:**
+    ```bash
+    chmod +x setup.sh
+    ./setup.sh
+    ```
+
+---
+
+SecureSystem provides a comprehensive security solution for Ubuntu systems, integrating advanced tools and automated scripts to ensure robust protection against potential threats.
